@@ -31,7 +31,7 @@ function words() {
 }
 
 function word() {
-  return this.match(/^[#@_\-'&!\w\dàèìòùáéíóúäëïöüâêîôûçßåøñœæ]+/i).toString();
+  return this.match(/^[#@_\.:\-'&!\wàèìòùáéíóúäëïöüâêîôûçßåøñœæ]+/i).toString();
 }
 
 function notop() {
@@ -51,8 +51,8 @@ function disjunction() {
 }
 
 var OPTREES = {
-  'AND': function(a,b) { return [ 'AND', a, b ] },
-  'OR': function(a,b) { return [ 'OR', a, b ] }
+  'AND': function(a,b) { return [ 'AND', a, b ]; },
+  'OR': function(a,b) { return [ 'OR', a, b ]; }
 };
 
 // --------------- test strings -------------------
@@ -61,7 +61,7 @@ function evalTree(tree, text) {
   if (!Array.isArray(tree)) {
     //return text.toLowerCase().indexOf(tree.toLowerCase()) >= 0;
     // TODO: cache these regexps?
-    return new RegExp("\\b"+tree+"\\b", "i").test(text);
+    return new RegExp(tree, "i").test(text);
   }
   var op = tree[0];
   if (op == 'OR') {
@@ -113,6 +113,6 @@ Expression.prototype = {
     test: function(text) {
         return evalTree(this.tree, text);
     }
-}
+};
 
 module.exports = Expression;
